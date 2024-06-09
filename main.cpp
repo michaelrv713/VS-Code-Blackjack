@@ -37,6 +37,9 @@ int main()
     while ( (win == false) && (bust == false) )
     {
         
+        UserCards userPile; // Creates pile
+        // TODO: Append two elements with randomized values. Use the same simple algorithm for when the user draws a card.
+
         bust = true;
         win = true;
         
