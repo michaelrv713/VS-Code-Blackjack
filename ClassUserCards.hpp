@@ -20,7 +20,7 @@ class UserCard
     
     private:
     
-        int value = -1;
+        int value;
         
 };
 
@@ -28,8 +28,8 @@ class UserCards
 {
     public:
     
-        void DrawCard();
-        void SetTotal(UserCard inputCard);
+        void DrawCard(int randNum);
+        void SetTotal();
         int GetTotal();
     
     

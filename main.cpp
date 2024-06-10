@@ -11,6 +11,7 @@
 using namespace std;
 
 #include "ClassUserCards.hpp"
+#include "ClassUserCards.cpp"
 
 
 int Generator ()
@@ -27,6 +28,7 @@ int Generator ()
 int main()
 {
     int cue;    // Stores a required user input needed to continue
+    int i;
     bool bust = false;
     bool win = false;
     
@@ -38,13 +40,21 @@ int main()
     {
         
         UserCards userPile; // Creates pile
-        // TODO: Append two elements with randomized values. Use the same simple algorithm for when the user draws a card.
+        userPile.DrawCard(Generator()); // Automatically Draws two cards
+        userPile.DrawCard(Generator());   // REPLACE 5 WITH GENERATOR FUNCTION
+
+        /*
+        Test this by outputting the value in UserCard for both elements in the vector.
+        */
+
+       userPile.SetTotal();
+       cout << userPile.GetTotal();
+
 
         bust = true;
         win = true;
         
         
-        // Create two cards that go in the userCards vector.
         
         // THE GAME WILL RUN IN THIS SPACE.
         

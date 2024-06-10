@@ -20,5 +20,36 @@ int UserCard::GetValue()
     return value;
 }
 
+void UserCards::DrawCard(int randNum)
+{
+
+UserCard newCard;
+newCard.SetValue(randNum);
+cardPile.push_back(newCard);
+
+
+}
+
+void UserCards::SetTotal()
+{
+
+UserCard currCard;
+
+for (int i = 0; i < cardPile.size(); ++i)
+{
+
+currCard = (cardPile.at(i)) ;  // TODO: UPDATE THIS LINE SO IT SPECIFICALLY ACCESSES THE VALUE SET AT cardPile!!!!!
+total = total + currCard.GetValue();
+
+}
+
+}
+
+int UserCards::GetTotal()
+{
+
+return total;
+
+}
 
 
