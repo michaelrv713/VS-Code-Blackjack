@@ -27,59 +27,99 @@ int Generator ()
 
 int main()
 {
-    int cue;    // Stores a required user input needed to continue
+    char cue;    // Stores a required user input needed to continue
     int i;
+    int j = 3;
     bool bust = false;
     bool win = false;
     
     cout << "Welcome to Blackjack! Press any key to continue: ";
     cin >> cue;
     cout << endl;
+
+    UserCards userPile; // Creates pile
+    userPile.DrawCard(Generator()); // Automatically Draws two cards
+    userPile.DrawCard(Generator());
+    userPile.SetTotal();
+
+    UserCards dealerPile;
+    dealerPile.DrawCard(Generator());
+    dealerPile.DrawCard(Generator());
+    dealerPile.DrawCard(Generator());
+    dealerPile.SetTotal();
+
     
-    while ( (win == false) && (bust == false) )
+    while ( (win == false) && (bust == false) && (j > 0))
     {
-        
-        UserCards userPile; // Creates pile
-        userPile.DrawCard(Generator()); // Automatically Draws two cards
-        userPile.DrawCard(Generator());   // REPLACE 5 WITH GENERATOR FUNCTION
+        --j;    // Increments loop such that the game is ended after 3 turns.
+       cout << "Total: " << userPile.GetTotal() << endl;
+       cout << "Type \'h\' to hit, or any other key to check" << endl;
 
-        /*
-        Test this by outputting the value in UserCard for both elements in the vector.
-        */
+       cin >> cue;
 
-       userPile.SetTotal();
-       cout << userPile.GetTotal();
+       if (cue == 'h') 
+       {
 
+        userPile.DrawCard(Generator());
+        userPile.SetTotal();
 
+       }
+
+       if (userPile.GetTotal() > 21)
+       {
         bust = true;
+
+       }
+       else if (userPile.GetTotal() == 21)
+       {
+
         win = true;
-        
-        
-        
+
+       }
+
         // THE GAME WILL RUN IN THIS SPACE.
         
         
     }
     
-    cout << endl;
-    
-    if (bust == true)
+    cout << "Total: " << userPile.GetTotal() << endl;
+
+    // START OF OUTCOMES FOR WHEN THE GAME IS OVER
+
+    if ( (bust == false) && (win == false) )    // Outcome: Compare with Dealer
     {
-        
-        cout << "Bust! Game Over!" << endl;
-        
+        if ( ( (dealerPile.GetTotal() < 21) && (userPile.GetTotal() > dealerPile.GetTotal()) ) || (dealerPile.GetTotal()) > 21 )
+        {
+            win = true;
+        }
+
+    }
+    
+    if (bust == true)   // Outcome: User busts
+    {
+        if (dealerPile.GetTotal() > 21)
+        {
+
+            cout << "Dealer busts! Tie!";
+
+        }
+        else 
+        {
+
+            cout << "Bust! Game Over!" << endl;
+        }
         
     }
-    else if (win == true)
+    else if (win == true)   // Outcome: Win
     {
         
         cout << "You Win!" << endl;
         
     }
-    else
+    else    // Outcome: Dealer Wins
     {
         
-        cout << "Error" << endl;
+        cout << "Dealer Won!" << endl;
         
     }
     

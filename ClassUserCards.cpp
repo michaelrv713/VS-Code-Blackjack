@@ -33,12 +33,13 @@ cardPile.push_back(newCard);
 void UserCards::SetTotal()
 {
 
+total = 0;
 UserCard currCard;
 
 for (int i = 0; i < cardPile.size(); ++i)
 {
 
-currCard = (cardPile.at(i)) ;  // TODO: UPDATE THIS LINE SO IT SPECIFICALLY ACCESSES THE VALUE SET AT cardPile!!!!!
+currCard = (cardPile.at(i)) ;
 total = total + currCard.GetValue();
 
 }
