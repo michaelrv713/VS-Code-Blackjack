@@ -19,7 +19,7 @@ int Generator ()
     srand (static_cast<unsigned int>(time(0)));
     int result = -5;
     
-    result = (rand() % 11) + 1;
+    result = (rand() % 10) + 2;
     
     return result;
 }
@@ -100,7 +100,7 @@ int main()
         if (dealerPile.GetTotal() > 21)
         {
 
-            cout << "Dealer busts! Tie!";
+            cout << "Dealer busts! Tie!" << endl;
 
         }
         else 

@@ -33,14 +33,27 @@ cardPile.push_back(newCard);
 void UserCards::SetTotal()
 {
 
+int testTotal = 0;
 total = 0;
 UserCard currCard;
 
 for (int i = 0; i < cardPile.size(); ++i)
 {
 
-currCard = (cardPile.at(i)) ;
+currCard = (cardPile.at(i));
+testTotal = testTotal + currCard.GetValue();
+
+if ( (testTotal > 21) && (currCard.GetValue() == 11) ) 
+{
+
+total = total + 1;
+
+}
+else 
+{
+
 total = total + currCard.GetValue();
+}
 
 }
 
