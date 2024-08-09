@@ -24,6 +24,85 @@ int Generator ()
     return result;
 }
 
+void DealerGame (UserCards& inputdeck)  // Manages the dealer's deck
+{
+
+    inputdeck.DrawCard(Generator());    // Draws first two cards for the Dealer
+    inputdeck.DrawCard(Generator());
+    inputdeck.SetTotal();
+
+    while (inputdeck.GetTotal() < 13)   // Dealer will continue to hit until total is 13 or higher
+    {
+        inputdeck.DrawCard(Generator());
+        inputdeck.SetTotal();
+
+    }
+
+    for (int i = 0; i < 2; ++i) {
+    
+    switch (inputdeck.GetTotal())   // Once total is 13 or higher, the total will determine if dealer draws again. 
+    {                               // Run 3 times, but if total is 20 or 21, no more cards will be drawn.
+        case 13: 
+            if ((Generator()) < 11 )
+            {
+                inputdeck.DrawCard(Generator());
+                inputdeck.SetTotal();
+            }
+            break;
+        case 14:
+            if ((Generator()) < 10 )
+            {
+                inputdeck.DrawCard(Generator());
+                inputdeck.SetTotal();
+
+            }
+            break;
+        case 15:
+            if ((Generator()) < 5 )
+            {
+                inputdeck.DrawCard(Generator());
+                inputdeck.SetTotal();
+
+            } 
+            break;
+        case 16:
+            if ((Generator()) < 5 )
+            {
+                inputdeck.DrawCard(Generator());
+                inputdeck.SetTotal();
+            }
+            break;
+        case 17:
+            if ((Generator()) < 4 )
+            {
+                inputdeck.DrawCard(Generator());
+                inputdeck.SetTotal();
+            }
+            break;
+        case 18:
+            if ((Generator()) < 3 )
+            {
+                inputdeck.DrawCard(Generator());
+                inputdeck.SetTotal();
+            }
+            break;
+        case 19:
+            if ((Generator()) < 2)
+            {
+                inputdeck.DrawCard(Generator());
+                inputdeck.SetTotal();
+            }
+            break;
+
+
+    }
+    
+    }
+
+
+
+}
+
 
 int main()
 {
@@ -126,11 +205,7 @@ int main()
     
 
     /*
-     Plan: Create Class for userCard with value. Create vector class that uses
-     UserCard. Create a function in this document that randomly generates a value.
-     Use the vector so that the user can keep adding cards.
-     
-     Create the game within a while loop that keeps repeating until either boolean is true.
+     Task: Re-create the opponent AI, since the last attempt did not work.
      
      
      Future Goal: Make a 'Multiplayer' Turn-Based Mode where there are two
