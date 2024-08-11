@@ -14,18 +14,18 @@ using namespace std;
 #include "ClassUserCards.cpp"
 
 
-int Generator ()
+int Generator ()    // Generates the numerical value of a drawn card, or a random number 
 {
     srand (static_cast<unsigned int>(time(0)));
-    int result = -5;
+    int result = -5;    // Initially assigns the integer with a negative value such that an error in the generator function can be identified
     
     result = (rand() % 10) + 2;
     
     return result;
 }
 
-void DealerGame (UserCards& inputdeck)  // Manages the dealer's deck
-{
+void DealerGame (UserCards& inputdeck)  // Manages the dealer's deck    
+{                                       // Pass by Reference in order to directly alter vectors and integers in the class
 
     inputdeck.DrawCard(Generator());    // Draws first two cards for the Dealer
     inputdeck.DrawCard(Generator());
@@ -40,62 +40,64 @@ void DealerGame (UserCards& inputdeck)  // Manages the dealer's deck
 
     for (int i = 0; i < 2; ++i) {
     
-    switch (inputdeck.GetTotal())   // Once total is 13 or higher, the total will determine if dealer draws again. 
-    {                               // Run 3 times, but if total is 20 or 21, no more cards will be drawn.
-        case 13: 
-            if ((Generator()) < 11 )
-            {
-                inputdeck.DrawCard(Generator());
-                inputdeck.SetTotal();
-            }
-            break;
-        case 14:
-            if ((Generator()) < 10 )
-            {
-                inputdeck.DrawCard(Generator());
-                inputdeck.SetTotal();
+        switch (inputdeck.GetTotal())   // Once total is 13 or higher, the total will determine if dealer draws again. 
+        {                               // Run 3 times, but if total is 20 or 21, no more cards will be drawn.
+            case 13: 
+                if ((Generator()) < 11 )
+                {
+                    inputdeck.DrawCard(Generator());
+                    inputdeck.SetTotal();
+                }
+                break;
+            case 14:
+                if ((Generator()) < 11 )
+                {
+                    inputdeck.DrawCard(Generator());
+                    inputdeck.SetTotal();
 
-            }
-            break;
-        case 15:
-            if ((Generator()) < 5 )
-            {
-                inputdeck.DrawCard(Generator());
-                inputdeck.SetTotal();
+                }
+                break;
+            case 15:
+                if ((Generator()) < 11 )
+                {
+                    inputdeck.DrawCard(Generator());
+                    inputdeck.SetTotal();
 
-            } 
-            break;
-        case 16:
-            if ((Generator()) < 5 )
-            {
-                inputdeck.DrawCard(Generator());
-                inputdeck.SetTotal();
-            }
-            break;
-        case 17:
-            if ((Generator()) < 4 )
-            {
-                inputdeck.DrawCard(Generator());
-                inputdeck.SetTotal();
-            }
-            break;
-        case 18:
-            if ((Generator()) < 3 )
-            {
-                inputdeck.DrawCard(Generator());
-                inputdeck.SetTotal();
-            }
-            break;
-        case 19:
-            if ((Generator()) < 2)
-            {
-                inputdeck.DrawCard(Generator());
-                inputdeck.SetTotal();
-            }
-            break;
+                } 
+                break;
+            case 16:
+                if ((Generator()) < 11 )
+                {
+                    inputdeck.DrawCard(Generator());
+                    inputdeck.SetTotal();
+                }
+                break;
+            case 17:
+                if ((Generator()) < 11 )
+                {
+                    inputdeck.DrawCard(Generator());
+                    inputdeck.SetTotal();
+                }
+                break;
+            case 18:
+                if ((Generator()) < 11 )
+                {
+                    inputdeck.DrawCard(Generator());
+                    inputdeck.SetTotal();
+                }
+                break;
+            case 19:
+                if ((Generator()) < 11)
+                {
+                    inputdeck.DrawCard(Generator());
+                    inputdeck.SetTotal();
+                }
+                break;
+            default:
+                break;
 
 
-    }
+        }
     
     }
 
@@ -108,7 +110,7 @@ int main()
 {
     char cue;    // Stores a required user input needed to continue
     int i;
-    int j = 3;
+    int j = 3;  // Integer manages the number of turns (3)
     bool bust = false;
     bool win = false;
     
@@ -122,10 +124,7 @@ int main()
     userPile.SetTotal();
 
     UserCards dealerPile;
-    dealerPile.DrawCard(Generator());
-    dealerPile.DrawCard(Generator());
-    dealerPile.DrawCard(Generator());
-    dealerPile.SetTotal();
+    DealerGame(dealerPile); // Runs the DealerGame Function to simulate three turns for the dealer
 
     
     while ( (win == false) && (bust == false) && (j > 0))
@@ -167,7 +166,7 @@ int main()
 
     if ( (bust == false) && (win == false) )    // Outcome: Compare with Dealer
     {
-        if ( ( (dealerPile.GetTotal() < 21) && (userPile.GetTotal() > dealerPile.GetTotal()) ) || (dealerPile.GetTotal()) > 21 )
+        if (  (dealerPile.GetTotal() > 21) || ( (userPile.GetTotal() > dealerPile.GetTotal()) ) )
         {
             win = true;
         }
@@ -197,15 +196,21 @@ int main()
     }
     else    // Outcome: Dealer Wins
     {
-        
-        cout << "Dealer Won!" << endl;
+        if ( (dealerPile.GetTotal()) <= 21 && (userPile.GetTotal()) < dealerPile.GetTotal() ) {
+
+            cout << "Dealer Won!" << endl;
+        }
+        if (dealerPile.GetTotal() <= 21 && (userPile.GetTotal()) == dealerPile.GetTotal() ) {
+
+            cout << "Tie! Try Again!" << endl;
+        }
         
     }
     
+    cout << "Dealer Total: " << dealerPile.GetTotal();
     
 
     /*
-     Task: Re-create the opponent AI, since the last attempt did not work.
      
      
      Future Goal: Make a 'Multiplayer' Turn-Based Mode where there are two
